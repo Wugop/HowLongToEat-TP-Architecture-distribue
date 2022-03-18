@@ -1,8 +1,14 @@
-server:
-  port: 8090
-  servlet:
-    context-path: /restaurant
 spring:
+  application:
+    name: restaurant-client #le nom de l'application
+  profiles:
+    active: native
+  config:
+    import: configserver:http://localhost:8888
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
   h2:
     console:
       enabled: true
@@ -21,11 +27,8 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
-  config:
-    import:
-  application:
-    name: restaurant #le nom de l'application
-  cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
