@@ -1,0 +1,1 @@
+INSERT INTO USER_MODEL VALUES (1,'wagret','maximilien','wagret.maximilien@gmail.com','password');

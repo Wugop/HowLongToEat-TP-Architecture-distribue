@@ -1,6 +1,6 @@
 spring:
   application:
-    name: restaurant-client #le nom de l'application
+    name: user-client #le nom de l'application
   profiles:
     active: native
   config:
