@@ -1,0 +1,81 @@
+@import './settings';
+@import './component/log/index';
+@import './component/search/list/index';
+@import './component/search/index';
+
+#root{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    width: 100vw;
+    height: 100vh;
+    background-color: #DBDBDB;
+}
+
+.app{
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 700px;
+    margin: 16px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 12px 16px 16px rgba(30, 30, 38, 0.2);
+    background-color: $main-color;
+
+    .window-options{
+        position:absolute;
+        top: 10px;
+        left: 10px;
+    }
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    font-size: 300%;
+    background-color: $second-color;
+    padding: 5%;
+    
+    .title-first{
+        display: flex;
+        color: white;
+    }
+    .title-second{
+        background: $main-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    input {
+        height: 2rem;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 4px;
+        margin-top: auto;
+        margin-bottom: auto;
+    
+        &:focus{
+          outline: none;
+        }
+    }
+    #join {
+        color: white;
+        font-weight: bold;
+        background: $main-gradient;
+        transition: .1s ease-in;
+        cursor: pointer;
+    
+        &:hover {
+          background: $main-gradient-hover;
+        }
+      }
+}
+
+.content{
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    display: flex;
+    justify-content: center;
+}

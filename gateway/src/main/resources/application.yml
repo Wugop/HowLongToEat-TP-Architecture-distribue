@@ -1,0 +1,17 @@
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: restaurant-client
+          uri: lb://restaurant
+          predicates:
+            - Path=/restaurant/**
+        - id: config-serveur
+          uri: lb://configServeur
+          predicates:
+            - Path=/configServeur/**
+server:
+  port: 8085

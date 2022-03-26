@@ -1,10 +1,18 @@
 server:
   port: 8888
+  servlet:
+    context-path: configServeur
 spring:
+  application:
+    name: config-serveur
   cloud:
     config:
       server:
         native:
+<<<<<<< HEAD
           search-locations: file:///D:\cours fac\M1 TNSID\S8\How long to eat - git config repo #à modifier selon le pc utilisé
+=======
+          search-locations: file:///C:\Users\Tom\Documents\GitHub\HowLongToEatRepo
+>>>>>>> 807a56492c30f79a4a018d4faf7972d1a9a0e31f
   profiles:
     active: native
