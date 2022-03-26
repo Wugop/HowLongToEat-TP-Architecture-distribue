@@ -1,0 +1,50 @@
+.list-container{
+    color: white;
+    height: 70px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    background-color: $second-color;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2%;
+    padding-right: 2%;
+
+    &:hover {
+        background: $main-gradient-hover;
+      }
+    
+    .infos{
+        .nomResto{
+            font-size: large;
+            margin-bottom: 1%;
+        }
+        
+        .adresseResto{
+            color: #a5a5a5;
+            font-style: italic;
+        }
+    }
+    .temps{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 30%;
+        .desc{
+            margin-right: 2%;
+        }
+        .min{
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2rem;
+            background: $main-gradient;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-left: 1%;
+        }
+    }
+}

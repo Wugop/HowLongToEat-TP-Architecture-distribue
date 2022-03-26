@@ -1,18 +1,21 @@
 import { useState } from "react";
 import Log from "./component/Log";
 import Search from "./component/Search";
+import "./style/index.scss";
 
 function App() {
-  const [loggedin, setLoggedin] = useState(null);
+  const [logger, setLogger] = useState(false);
 
   return (
-    <div className="App">
+    <div className="app">
       <div className="title">
-        <div className="title-first">How Long to </div>
-        <div className="title-second">Eat</div>
+        <div className="title-first">HowLongTo<div className="title-second">Eat</div></div>
+        <input type="button" onClick={() => setLogger(true)} value="Se Connecter" id="join" />
       </div>
-      {!loggedin && <Log />}
-      {loggedin && <Search />}
+      <div className="content">
+        {logger && <Log />}
+        {!logger && <Search />}
+      </div>
     </div>
   );
 }

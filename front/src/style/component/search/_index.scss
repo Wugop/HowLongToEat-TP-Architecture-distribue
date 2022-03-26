@@ -1,0 +1,34 @@
+.search-container{
+   width: 95%;
+   max-width: 570px;
+
+   .searchBar{
+        display: flex;
+        margin-top: 3%;
+
+        #icon{
+            padding: 1%;
+            width: 3.5%;
+            background: $main-gradient;
+            transition: .1s ease-in;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-left: 1%;
+        
+            &:hover {
+                background: $main-gradient-hover;
+            }
+        }
+    
+        #searchBar{
+            width: 40%;
+            font-style: italic;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 1%;
+        }
+   }
+   
+}

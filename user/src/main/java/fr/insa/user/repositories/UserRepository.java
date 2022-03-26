@@ -1,4 +1,4 @@
-package fr.insa.user.model.repositories;
+package fr.insa.user.repositories;
 
 import fr.insa.user.model.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;

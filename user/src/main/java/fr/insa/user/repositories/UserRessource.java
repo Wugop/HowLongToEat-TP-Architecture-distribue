@@ -1,4 +1,4 @@
-package fr.insa.user.model.repositories;
+package fr.insa.user.repositories;
 
 
 import fr.insa.user.model.UserModel;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping("api/v1")
 public class UserRessource {
 
     @Autowired

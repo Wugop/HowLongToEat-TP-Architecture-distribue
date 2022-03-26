@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 interface RestaurantRepository extends JpaRepository<RestaurantModel, String> {
-
+    public RestaurantModel getRestaurantModelByIdRestaurant(int idRestaurant);
 }
