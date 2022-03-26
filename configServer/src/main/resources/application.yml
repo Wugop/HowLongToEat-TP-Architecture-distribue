@@ -5,6 +5,6 @@ spring:
     config:
       server:
         native:
-          search-locations: file:///D:\cours fac\M1 TNSID\S8\How long to eat - git config repo
+          search-locations: file:///D:\cours fac\M1 TNSID\S8\HowLongToEat-TP-architecture-distribue\How long to eat - git config repo #à modifier selon le pc utilisé
   profiles:
     active: native

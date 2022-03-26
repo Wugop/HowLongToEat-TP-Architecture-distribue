@@ -9,6 +9,8 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+  
+
 management:
   endpoints:
     web:
