@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: note-client #le nom de l'application
+  profiles:
+    active: native
+  config:
+    import: configserver:http://localhost:8888
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

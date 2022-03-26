@@ -1,14 +1,10 @@
 server:
   port: 8888
-  servlet:
-    context-path: configServeur
 spring:
-  application:
-    name: config-serveur
   cloud:
     config:
       server:
         native:
-          search-locations: file:///C:\Users\Tom\Documents\GitHub\HowLongToEatRepo
+          search-locations: file:///C:/Users/Tom/Documents/GitHub/HowLongToEatRepo
   profiles:
     active: native
