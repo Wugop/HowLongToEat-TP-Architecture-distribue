@@ -1,16 +1,16 @@
 import React from 'react';
 
-const List = () => {
+const List = ({dataResto}) => {
     return (
         <div className="list-container">
             <div className="infos">
-                <div className="nomResto">Nom du Restaurant</div>
-                <div className="adresseResto">20 rue des Capucins, 59300 Valenciennes</div>
-                <div className="adresseResto">Ouvert - 11h à 14h</div>
+                <div className="nomResto">{dataResto.nomResto}</div>
+                <div className="adresseResto">{dataResto.adresseResto}</div>
+                <div className="adresseResto">Ouvert - {dataResto.horaires}</div>
             </div>
             <div className="temps">
                 <div className="desc">Temps d'attente :</div>
-                <div className="min">30'</div>
+                <div className="min">{dataResto.tmps}'</div>
             </div>
         </div>
     );

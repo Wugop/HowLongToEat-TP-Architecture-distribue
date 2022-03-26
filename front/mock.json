@@ -1,0 +1,107 @@
+{
+  "uuid": "9467dc82-9571-4fd9-9781-596a87cb644d",
+  "lastMigration": 19,
+  "name": "Mock",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "75dafe8a-397f-41fc-8bc5-ebe39e5a45fb",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "restos",
+      "responses": [
+        {
+          "uuid": "2a7592d8-5828-4e8b-8585-2008c517133e",
+          "body": "[\n  {\n    \"nomResto\": \"RU 1\",\n    \"adresseResto\": \"Mont Houy\",\n    \"horaires\": \"11h30-13h\",\n    \"tmps\": 30\n  },\n  {\n    \"nomResto\": \"RU 2\",\n    \"adresseResto\": \"Mont Houy\",\n    \"horaires\": \"11h30-13h\",\n    \"tmps\": 20\n  },\n  {\n    \"nomResto\": \"Chez Thomas\",\n    \"adresseResto\": \"20 rue des Capucins, 59300 Valenciennes\",\n    \"horaires\": \"00h-23h59\",\n    \"tmps\": 5\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "search",
+              "value": "Valenciennes",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "c4bfdee1-f466-4f3c-9e59-af97e2445300",
+          "body": "[\n  {\n    \"nomResto\": \"Chez Max & Tom\",\n    \"adresseResto\": \"20 rue des Capucins, 59000 Lille\",\n    \"horaires\": \"11h30-13h\",\n    \"tmps\": 15\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "search",
+              "value": "Lille",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}
