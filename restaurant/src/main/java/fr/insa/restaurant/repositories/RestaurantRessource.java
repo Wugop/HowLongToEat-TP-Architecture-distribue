@@ -3,10 +3,7 @@ package fr.insa.restaurant.repositories;
 
 import fr.insa.restaurant.model.RestaurantModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,16 +16,23 @@ public class RestaurantRessource {
     public RestaurantRepository restaurantRepository;
 
 
-    @GetMapping("restaurant")
+    @GetMapping
     public List<RestaurantModel> getRestaurant() {
         return restaurantRepository.findAll();
     }
 
-    @GetMapping("restaurant/post")
-    public String PostRestaurant() {
-        restaurantRepository.save(new RestaurantModel(2,"description2"));
-        return "OK";
+
+    @GetMapping(params = {"idRestaurant"})
+    public RestaurantModel getRestaurantById(@RequestParam(name = "idRestaurant") int idRestaurant) {
+        return restaurantRepository.getRestaurantModelByIdRestaurant(idRestaurant);
     }
+
+    @PostMapping()
+    public RestaurantModel addRestaurantModel(@RequestBody RestaurantModel restaurantModel) {
+        return restaurantRepository.save(restaurantModel);
+    }
+
+
 
 
 }

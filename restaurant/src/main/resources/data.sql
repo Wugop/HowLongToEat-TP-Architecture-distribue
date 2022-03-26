@@ -1,1 +1,0 @@
-INSERT INTO RESTAURANT_MODEL VALUES (1,'description 1');
