@@ -13,7 +13,8 @@ import java.util.Date;
 @Entity
 @Table
 @Getter
-@Setter@NoArgsConstructor
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class NoteModel {
     @Id

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/userRessources")
 public class UserRessource {
 
     @Autowired
@@ -43,6 +43,7 @@ public class UserRessource {
      */
     @GetMapping(params = {"mail","password"})
     public UserModel getUserByMailAndPassword(@RequestParam(name = "mail") String mail, @RequestParam(name = "password") String password) {
+        UserModel userModel = userRepository.getUserModelByMailAndPassword(mail,password);
         return userRepository.getUserModelByMailAndPassword(mail,password);
     }
 
@@ -52,7 +53,7 @@ public class UserRessource {
      * @return tous les utilisateurs enregistrés dans la base de donnée
      */
     @GetMapping
-    public List<UserModel> getUser() {
+    public List<UserModel> getUser(@RequestHeader(name = "x-auth-user-id") String headertest) {
         return userRepository.findAll();
     }
 

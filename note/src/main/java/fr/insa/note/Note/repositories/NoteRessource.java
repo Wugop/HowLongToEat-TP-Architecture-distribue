@@ -1,6 +1,8 @@
 package fr.insa.note.Note.repositories;
 
 import fr.insa.note.Note.NoteModel;
+import fr.insa.note.Note.Userblabla;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,4 +44,13 @@ public class NoteRessource {
     public List<NoteModel> getNotebyUser (@RequestParam(name = "idUserN") int idUser) {
         return noteRepository.getNoteModelByIdUserN(idUser);
     }
+
+
+
+    @GetMapping(path = "/coucou")
+    public Userblabla getall () {
+        Userblabla user = new Userblabla(1,"max");
+        return user;
+    }
+
 }

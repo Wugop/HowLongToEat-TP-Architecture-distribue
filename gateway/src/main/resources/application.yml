@@ -1,17 +1,34 @@
-
 spring:
   application:
-    name: gateway-service
+    name: gateway-client
+  profiles:
+    active: native
+  config:
+    import: configserver:http://localhost:8888
   cloud:
     gateway:
-      routes:
-        - id: restaurant-client
-          uri: lb://restaurant
-          predicates:
-            - Path=/restaurant/**
-        - id: config-serveur
-          uri: lb://configServeur
-          predicates:
-            - Path=/configServeur/**
-server:
-  port: 8085
+        routes:
+          - id: user-client-id
+            uri: lb://user-client
+            predicates:
+              - Path=/user/**
+            filters:
+              - AuthFilter
+          - id: restaurant-client-id
+            uri: lb://restaurant-client
+            predicates:
+              - Path=/restaurant/**
+    #        - id: note-client-id
+    #          uri: lb://note-client
+    #          predicates:
+    #            - Path=/note/**
+    loadbalancer:
+      ribbon:
+        enabled: false
+management:
+  endpoints:
+    gateway:
+      enables: true
+    web:
+      exposure:
+        include: gateway
