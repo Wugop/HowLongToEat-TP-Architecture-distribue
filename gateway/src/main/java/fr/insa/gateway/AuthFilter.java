@@ -65,9 +65,6 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                     .get()
                     .uri("http://user-client/user/api/v1/authorization/is-authorized?jwt=" + parts[1])
                     .retrieve().bodyToMono(String.class)
-                    .filter(token -> !token.equals("-1"))
-                    .doOnError(token -> !token.equals("-1"))
-                    .onErrorReturn("error"))
                     .map(id -> {
                 if (id.equals("-1")) { //Si id = -1, alors le token a mal été généré
                     exchange.getRequest().mutate().build();
