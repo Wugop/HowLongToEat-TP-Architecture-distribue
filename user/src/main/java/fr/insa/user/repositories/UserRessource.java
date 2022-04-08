@@ -3,6 +3,8 @@ package fr.insa.user.repositories;
 
 import fr.insa.user.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,5 +58,7 @@ public class UserRessource {
     public List<UserModel> getUser(@RequestHeader(name = "x-auth-user-id") String headertest) {
         return userRepository.findAll();
     }
+
+
 
 }

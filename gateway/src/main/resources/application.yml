@@ -18,10 +18,10 @@ spring:
             uri: lb://restaurant-client
             predicates:
               - Path=/restaurant/**
-    #        - id: note-client-id
-    #          uri: lb://note-client
-    #          predicates:
-    #            - Path=/note/**
+          - id: note-client-id
+            uri: lb://note-client
+            predicates:
+                - Path=/note/**
     loadbalancer:
       ribbon:
         enabled: false
