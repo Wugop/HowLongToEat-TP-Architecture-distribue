@@ -6,9 +6,6 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.http.server.reactive.AbstractServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,7 +13,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
 @Component
@@ -46,48 +42,27 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                 throw new RuntimeException("Incorrect auth Structure");
             }
 
-
-            webClientBuilder.build()
-                    .get()
-                    .uri("http://user-client/user/api/v1/authorization/is-authorized?jwt=" + parts[1])
-                    .retrieve().bodyToMono(String.class)
-                    .filter(token -> !token.equals("-1"))
-                    .blockOptional()
-                    .map(id -> {
-                        exchange.getRequest()
-                                .mutate()
-                                .header("x-auth-user-id", id);
-                        return exchange;
-                    })
-                    .orElse(onError(exchange,"error"));
-
             return webClientBuilder.build()
                     .get()
                     .uri("http://user-client/user/api/v1/authorization/is-authorized?jwt=" + parts[1])
                     .retrieve().bodyToMono(String.class)
-                    .map(id -> {
-                if (id.equals("-1")) { //Si id = -1, alors le token a mal été généré
-                    exchange.getRequest().mutate().build();
-
-                    //Trouver comment modifier la requete afin de la mener vers une page erreur
-
-                            /*ServerHttpRequest request = new ServletServerHttpRequest();
-                            exchange.mutate().request(exchange.getRequest().mutate().path("/user/api/v1/authorization/not-authorized").build());*/
-                } else { //Sinon, cela veut dire que le token a bien été généré
-                    exchange.getRequest()
-                            .mutate()
-                            .header("x-auth-user-id", id);
-                }
-                return exchange;
-            }).flatMap(chain::filter);
+                    .filter(token -> !token.equals("-1"))
+                    .map(id1 -> {
+                        exchange.getRequest()
+                                .mutate()
+                                .header("x-auth-user-id", id1);
+                        return exchange;
+                    })
+                    .switchIfEmpty(Mono.defer(() -> setErrorResponse(exchange).then(Mono.empty())))
+                    .flatMap(chain::filter);
         };
     }
 
-    private Mono<Void> onError(ServerWebExchange exchange, String message) {
-        ServerHttpResponse response = exchange.getResponse();
-        response.setStatusCode(HttpStatus.UNAUTHORIZED);
-        byte[] bytes = message.getBytes(StandardCharsets.UTF_8);
-        DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
+    private Mono<Void> setErrorResponse(ServerWebExchange serverHttpResponse) {
+        ServerHttpResponse response = serverHttpResponse.getResponse();
+        response.setStatusCode(HttpStatus.EXPECTATION_FAILED);
+        byte[] bytes = "Not Authorized!".getBytes(StandardCharsets.UTF_8);
+        DataBuffer buffer = serverHttpResponse.getResponse().bufferFactory().wrap(bytes);
         return response.writeWith(Flux.just(buffer));
     }
 
