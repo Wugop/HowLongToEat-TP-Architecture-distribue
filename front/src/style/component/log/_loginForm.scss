@@ -15,7 +15,7 @@
     border: none;
     border-radius: 4px;
 
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
@@ -37,4 +37,10 @@
       background: $main-gradient-hover;
     }
   }
+
+  .errorText{
+    color: red;
+  }
+
+
 }

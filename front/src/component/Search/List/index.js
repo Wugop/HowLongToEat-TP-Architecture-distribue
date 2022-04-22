@@ -1,8 +1,14 @@
 import React from 'react';
+import { UserContext } from '../../../App';
 
-const List = ({dataResto}) => {
+const List = ({dataResto, setPage}) => {
+
+    const test = () => {
+        setPage("Test");
+    };
+
     return (
-        <div className="list-container">
+        <div className="list-container" onClick={test}>
             <div className="infos">
                 <div className="nomResto">{dataResto.nomResto}</div>
                 <div className="adresseResto">{dataResto.adresseResto}</div>

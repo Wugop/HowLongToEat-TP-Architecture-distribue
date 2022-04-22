@@ -59,6 +59,31 @@
           outline: none;
         }
     }
+
+    .disconnectButton{
+        display: flex;
+        font-size: 0.875rem;
+        color: white;
+
+        .username{
+            margin: auto;
+        }
+
+        input {
+            height: 2rem;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 4px;
+            margin-left: 3%;
+            margin-top: auto;
+            margin-bottom: auto;
+        
+            &:focus{
+              outline: none;
+            }
+        }
+    }
+
     #join {
         color: white;
         font-weight: bold;

@@ -59,6 +59,90 @@
       "enabled": true,
       "randomResponse": false,
       "sequentialResponse": false
+    },
+    {
+      "uuid": "8363d020-03b2-49fd-a9de-6032e0fb8b97",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "33fd7b96-be30-40ce-8120-98fae787cf2d",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "e2d226ff-457c-4bf7-b420-a5d85dd753e1",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "login",
+      "responses": [
+        {
+          "uuid": "f20e83b8-5235-451e-9500-e4c113349074",
+          "body": "{\n  \"token\":\"tokenTest\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "username",
+              "value": "thomas",
+              "operator": "equals"
+            },
+            {
+              "target": "query",
+              "modifier": "password",
+              "value": "123",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "4e44becb-e422-4d46-bc86-45371a400945",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "username",
+              "value": "",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
     }
   ],
   "proxyMode": false,
