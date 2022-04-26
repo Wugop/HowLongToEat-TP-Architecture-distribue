@@ -1,1 +1,1 @@
-# HowLongToEat-TP-Architecture-distribue
+# HowLongToEat-TP-Architecture-distribuee
