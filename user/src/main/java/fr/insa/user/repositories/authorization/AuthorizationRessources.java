@@ -41,11 +41,5 @@ public class AuthorizationRessources {
         return "-1";
     }
 
-    @GetMapping("not-authorized")
-    public ResponseEntity<String> notAuthorized() {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body("access denied, error with Token");
-    }
-
 }
 

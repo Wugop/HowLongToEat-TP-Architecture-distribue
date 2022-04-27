@@ -1,17 +1,16 @@
 package fr.insa.user.repositories;
 
 
+import Exceptions.ExecutionErrorException;
 import fr.insa.user.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("api/v1/userRessources")
-public class UserRessource {
+public class UserRessource extends CommonRessource{
 
     @Autowired
     public UserRepository userRepository;
@@ -23,8 +22,11 @@ public class UserRessource {
      * @return les infos du nouvel utilisateur créé
      */
     @PostMapping
-    public UserModel addUser(@RequestBody UserModel userModel) {
-        return userRepository.save(userModel);
+    public ResponseEntity<String> addUser(@RequestBody UserModel userModel) throws ExecutionErrorException {
+        if(this.userRepository.getUserModelByMail(userModel.getMail()) != null)
+            throw new ExecutionErrorException("Error creating user, this email is already used.",HttpStatus.CONFLICT);
+        this.userRepository.save(userModel);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("User created.");
     }
 
     /**
@@ -33,8 +35,15 @@ public class UserRessource {
      * @return l'utilisateur s'il existe, NULL sinon
      */
     @GetMapping(params = {"mail"})
-    public UserModel getUserByMail(@RequestParam(name = "mail") String mail) {
-        return userRepository.getUserModelByMail(mail);
+    public UserModel getUserByMail(@RequestParam(name = "mail") String mail) throws ExecutionErrorException {
+        UserModel userModel = this.userRepository.getUserModelByMail(mail);
+        if(userModel == null)
+            throw new ExecutionErrorException("Error getting user, this email is non-existent.",HttpStatus.BAD_REQUEST);
+        return UserModel.builder()
+                .mail(userModel.getMail())
+                .name(userModel.getName())
+                .firstName(userModel.getFirstName())
+                .build();
     }
 
     /**
@@ -44,21 +53,15 @@ public class UserRessource {
      * @return l'utilisateur s'il existe, NULL sinon
      */
     @GetMapping(params = {"mail","password"})
-    public UserModel getUserByMailAndPassword(@RequestParam(name = "mail") String mail, @RequestParam(name = "password") String password) {
-        UserModel userModel = userRepository.getUserModelByMailAndPassword(mail,password);
-        return userRepository.getUserModelByMailAndPassword(mail,password);
+    public UserModel getUserByMailAndPassword(@RequestParam(name = "mail") String mail, @RequestParam(name = "password") String password) throws ExecutionErrorException {
+        UserModel userModel = this.userRepository.getUserModelByMailAndPassword(mail,password);
+        if(userModel == null)
+            throw new ExecutionErrorException("Error getting user, mail or password incorrect.",HttpStatus.BAD_REQUEST);
+        return UserModel.builder()
+                .mail(userModel.getMail())
+                .name(userModel.getName())
+                .firstName(userModel.getFirstName())
+                .password(userModel.getPassword())
+                .build();
     }
-
-
-    /**
-     * Permet de récupérer tous les utilisateurs présents dans la base de donnée
-     * @return tous les utilisateurs enregistrés dans la base de donnée
-     */
-    @GetMapping
-    public List<UserModel> getUser(@RequestHeader(name = "x-auth-user-id") String headertest) {
-        return userRepository.findAll();
-    }
-
-
-
 }
