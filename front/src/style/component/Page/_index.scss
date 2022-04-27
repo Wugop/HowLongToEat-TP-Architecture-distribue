@@ -1,0 +1,65 @@
+.page {
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+
+    .infosDetails {
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        background-color: $second-color;
+        border-radius: 16px;
+        height: 25%;
+        margin: 3%;
+        width: 88%;
+        padding: 3%;
+
+        .infosRestos {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .nom {
+                font-size: x-large;
+                color: $color-bonus-1;
+                margin-bottom: 2%;
+            }
+        }
+
+        .img {
+            width: 8px;
+        }
+    }
+
+    .affluence {
+        color: white;
+        background-color: $second-color;
+        border-radius: 16px;
+        height: 30%;
+        margin: 3%;
+        width: 88%;
+        padding: 3%;
+
+        .titre {
+            font-size: x-large;
+            color: $color-bonus-1;
+            margin-bottom: 2%;
+        }
+    }
+
+    .inputHeures{
+        color: white;
+        background-color: $second-color;
+        border-radius: 16px;
+        height: 30%;
+        margin: 3%;
+        width: 88%;
+        padding: 3%;
+
+        .titre {
+            font-size: x-large;
+            color: $color-bonus-1;
+            margin-bottom: 2%;
+        }
+    }
+}

@@ -1,12 +1,14 @@
-.search-container{
-   width: 95%;
-   max-width: 570px;
+.search-container {
+    width: 100%;
+    max-width: 570px;
+    max-height: 100%;
+    overflow-y: overlay;
 
-   .searchBar{
+    .searchBar {
         display: flex;
         margin-top: 3%;
 
-        #icon{
+        #icon {
             padding: 1%;
             width: 3.5%;
             background: $main-gradient;
@@ -15,13 +17,13 @@
             border-radius: 10px;
             overflow: hidden;
             margin-left: 1%;
-        
+
             &:hover {
                 background: $main-gradient-hover;
             }
         }
-    
-        #searchBar{
+
+        #searchBar {
             width: 40%;
             font-style: italic;
             border: none;
@@ -29,6 +31,6 @@
             overflow: hidden;
             padding: 1%;
         }
-   }
-   
+    }
+
 }

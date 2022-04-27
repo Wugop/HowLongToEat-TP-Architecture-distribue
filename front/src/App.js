@@ -12,11 +12,16 @@ function App() {
   const [username, setUsername] = useState("");
   const [page, setPage] = useState("");
 
+  const accueil = () => {
+    setLogger(false);
+    setPage("");
+  };
+
   return (
     <div className="app">
       <UserContext.Provider value={{ username, token, logger }}>
         <div className="title">
-          <div className="title-first">HowLongTo<div className="title-second">Eat</div></div>
+          <div className="title-first" onClick={accueil}>HowLongTo<div className="title-second">Eat</div></div>
           {!token && !logger && <input type="button" onClick={() => setLogger(true)} value="Se Connecter" id="join" />}
           {
             token &&
@@ -33,7 +38,7 @@ function App() {
 
           {logger && <Log setLogger={setLogger} setToken={setToken} setUsername={setUsername} />}
           {!logger && !page && <Search setPage={setPage}/>}
-          {page && !logger && <Page/>}
+          {page && !logger && <Page dataResto={page}/>}
 
         </div>
       </UserContext.Provider>

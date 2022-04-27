@@ -1,22 +1,21 @@
 import React from 'react';
-import { UserContext } from '../../../App';
 
 const List = ({dataResto, setPage}) => {
 
-    const test = () => {
-        setPage("Test");
+    const afficherPage = () => {
+        setPage(dataResto);
     };
 
     return (
-        <div className="list-container" onClick={test}>
+        <div className="list-container" onClick={afficherPage}>
             <div className="infos">
-                <div className="nomResto">{dataResto.nomResto}</div>
-                <div className="adresseResto">{dataResto.adresseResto}</div>
-                <div className="adresseResto">Ouvert - {dataResto.horaires}</div>
+                <div className="nomResto">{dataResto.name}</div>
+                <div className="adresseResto">{dataResto.adress}</div>
+                <div className="adresseResto">Ouvert - {dataResto.hourly}</div>
             </div>
             <div className="temps">
                 <div className="desc">Temps d'attente :</div>
-                <div className="min">{dataResto.tmps}'</div>
+                <div className="min">-</div>
             </div>
         </div>
     );
