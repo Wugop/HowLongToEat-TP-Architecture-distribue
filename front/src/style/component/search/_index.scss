@@ -1,12 +1,13 @@
 .search-container {
     width: 100%;
-    max-width: 570px;
     max-height: 100%;
     overflow-y: overlay;
 
+
+
     .searchBar {
         display: flex;
-        margin-top: 3%;
+        margin: 3%;
 
         #icon {
             padding: 1%;
@@ -33,4 +34,24 @@
         }
     }
 
+}
+
+.search-container::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+.search-container::-webkit-scrollbar-track {
+    background: $main-color;
+}
+
+/* Handle */
+.search-container::-webkit-scrollbar-thumb {
+    background: $main-gradient;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.search-container::-webkit-scrollbar-thumb:hover {
+    background: $main-gradient-hover;
 }

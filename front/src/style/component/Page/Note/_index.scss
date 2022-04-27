@@ -4,15 +4,13 @@
     align-items: center;
     justify-content: space-between;
     height: 150px;
-    margin-top: 2%;
+    margin-top: 3%;
 
     .partOne {
         width: 100%;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
+        text-align: left;
 
-        input {
+        input{
             color: white;
             background: none;
             border: 1px solid $color-bonus-1;
@@ -20,7 +18,23 @@
             padding: 0 8px 0 8px;
             box-sizing: border-box;
             border-radius: 4px;
+            margin-right: 2%;
         }
+
+        select{
+            background: none;
+            border: 1px solid $color-bonus-1;
+            height: 2rem;
+            padding: 0 8px 0 8px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            margin-right: 2%;
+            color: white;
+        }
+
+        option:not(:first-of-type) {
+            color: black;
+          }
 
         input::placeholder {
             color: white;
@@ -39,6 +53,7 @@
         width: 100%;
         height: 50%;
         resize: none;
+        padding: 1%;
     }
 
     textarea::placeholder {
@@ -46,6 +61,7 @@
     }
 
     .buttonSend {
+        width: 18%;
         height: 2rem;
         box-sizing: border-box;
         border: none;
@@ -54,14 +70,15 @@
         &:focus {
             outline: none;
         }
+
         color: white;
         font-weight: bold;
         background: $main-gradient;
         transition: .1s ease-in;
         cursor: pointer;
-    
+
         &:hover {
-          background: $main-gradient-hover;
+            background: $main-gradient-hover;
         }
     }
 }

@@ -26,8 +26,9 @@
             }
         }
 
-        .img {
-            width: 8px;
+        img {
+            width: 200px;
+            margin: 1%;
         }
     }
 
@@ -35,7 +36,7 @@
         color: white;
         background-color: $second-color;
         border-radius: 16px;
-        height: 30%;
+        height: 200px;
         margin: 3%;
         width: 88%;
         padding: 3%;
@@ -51,7 +52,7 @@
         color: white;
         background-color: $second-color;
         border-radius: 16px;
-        height: 30%;
+        height: 180px;
         margin: 3%;
         width: 88%;
         padding: 3%;
@@ -62,4 +63,30 @@
             margin-bottom: 2%;
         }
     }
+
+    .connect{
+       text-align: center;
+       margin-top: 16%;
+    }
+}
+
+.page::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+.page::-webkit-scrollbar-track {
+    background: $main-color;
+    
+}
+
+/* Handle */
+.page::-webkit-scrollbar-thumb {
+    background: $main-gradient;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.page::-webkit-scrollbar-thumb:hover {
+    background: $main-gradient-hover;
 }

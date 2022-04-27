@@ -23,7 +23,7 @@ const Page = ({ dataResto }) => {
             </div>
             <div className="inputHeures">
                 {context.token && <Note/>}
-                {!context.token && <div className="connect">Connectez-vous pour partger votre temps d'attente dans ce restaurant.</div>}
+                {!context.token && <div className="connect">Connectez-vous pour partager votre expérience dans ce restaurant.</div>}
             </div>
         </div>
 

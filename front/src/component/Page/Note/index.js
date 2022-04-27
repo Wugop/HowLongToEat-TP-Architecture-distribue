@@ -7,8 +7,15 @@ const Note = () => {
             <form action="" className='formNote'>
                 <div className="partOne">
                     <input type="datetime-local" />
-                    <input type="number" max="5" min="1" step="1" placeholder="Note /5" />
-                    <input type="number" min="1" step="1" placeholder="Temps d'attente" />
+                    <select placeholder='Note'>
+                        <option className='placeholderNote'>Note</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <input type="number" min="1" step="1" placeholder="Temps d'attente (en min)" />
                 </div>
                 <textarea placeholder='Commentaire' className='comment'/>
                 <input type="submit" value="Envoyer" id="send" className='buttonSend'/>
