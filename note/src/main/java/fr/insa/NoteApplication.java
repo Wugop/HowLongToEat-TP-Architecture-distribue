@@ -1,4 +1,4 @@
-package fr.insa.note.Note;
+package fr.insa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,12 +1,10 @@
 package fr.insa.restaurant.repositories;
 
 
-import Exceptions.ExecutionErrorException;
 import fr.insa.restaurant.model.RestaurantModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -26,34 +24,47 @@ public class RestaurantRessource {
         return restaurantRepository.findAll();
     }
 
+
     /**
-     * Permet de récupérer les informations d'un restaurant a partir de son id
+     * Permet de récupérer les informations d'un restaurant à partir de son id.
      *
-     * @param idRestaurant du restaurant a recuperer
-     * @return tous les informations du restaurant s'il existe, sinon NULL
+     * @param idRestaurant du restaurant à récupérer
+     * @return toutes les informations du restaurant s'il existe, sinon NULL
      */
     @GetMapping(params = {"idRestaurant"})
-    public RestaurantModel getRestaurantById(@RequestParam(name = "idRestaurant") int idRestaurant) throws ExecutionErrorException {
-        RestaurantModel restaurantModel = this.restaurantRepository.getRestaurantModelByIdRestaurant(idRestaurant);
-        if (restaurantModel == null)
-            throw new ExecutionErrorException("Error getting restaurant, this id is non-existent.", HttpStatus.BAD_REQUEST);
-        return RestaurantModel.builder()
-                .description(restaurantModel.getDescription())
-                .build();
+    public RestaurantModel getRestaurantById(@RequestParam(name = "idRestaurant") int idRestaurant) {
+        return restaurantRepository.getRestaurantModelByIdRestaurant(idRestaurant);
     }
 
     /**
-     * Permet la création d'un restaurant dans la base de donnée
+     * Permet de récupérer tous les restaurants issus d'une ville.
+     * Récupère tous les restaurants, puis compare leur ville avec le nom de la ville récupéré dans la variable city.
+     * Si la ville d'un restaurant n'est pas compatible à au moins 40% de la variable city, celui ci est retiré de la liste.
      *
-     * @param restaurantModel le corps du nouveau restaurant
-     * @return les informations du nouveau restaurant créé
+     * @param city une ville à récupérer
+     * @return Une liste de restaurant
      */
-    @PostMapping()
-    public ResponseEntity<String> addRestaurant (@RequestBody RestaurantModel restaurantModel) {
-        restaurantRepository.save(restaurantModel);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Restaurant created.");
+    @GetMapping(params = {"city"})
+    public List<RestaurantModel> getRestaurantByCity(@RequestParam(name = "city") String city) {
+        List<RestaurantModel> restaurantModelList = restaurantRepository.findAll();
+        restaurantModelList.removeIf(restaurantModel -> StringSimilarity.similarity(city, restaurantModel.getCity()) < 0.40);
+        return restaurantModelList;
     }
 
+    /**
+     * Permet de récupérer tous les restaurants issus en fonction de leur nom.
+     * Récupère tous les restaurants, puis compare leur nom avec le nom récupéré dans la variable name.
+     * Si le nom d'un restaurant n'est pas compatible à au moins 40% de la variable name, celui ci est retiré de la liste.
+     *
+     * @param name le nom d'un restaurant à récupérer
+     * @return Une liste de restaurant
+     */
+    @GetMapping(params = {"name"})
+    public List<RestaurantModel> getRestaurantByName(@RequestParam(name = "name") String name) {
+        List<RestaurantModel> restaurantModelList = restaurantRepository.findAll();
+        restaurantModelList.removeIf(restaurantModel -> StringSimilarity.similarity(name, restaurantModel.getName()) < 0.40);
+        return restaurantModelList;
+    }
 }
 
 

@@ -1,4 +1,4 @@
-package fr.insa.note.Note;
+package fr.insa.note;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

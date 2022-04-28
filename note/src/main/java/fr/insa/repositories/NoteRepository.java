@@ -1,6 +1,6 @@
-package fr.insa.note.Note.repositories;
+package fr.insa.repositories;
 
-import fr.insa.note.Note.NoteModel;
+import fr.insa.note.NoteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

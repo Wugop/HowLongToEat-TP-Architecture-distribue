@@ -29,6 +29,20 @@ public class UserRessource extends CommonRessource{
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("User created.");
     }
 
+    @GetMapping(params = {"idUser"})
+    public UserModel getUserByMail(@RequestParam(name = "idUser") int id) throws ExecutionErrorException {
+        UserModel userModel = this.userRepository.getUserModelByIdUser(id);
+        if(userModel == null)
+            throw new ExecutionErrorException("Error getting user, any user with this ID",HttpStatus.BAD_REQUEST);
+        return UserModel.builder()
+                .mail(userModel.getMail())
+                .name(userModel.getName())
+                .firstName(userModel.getFirstName())
+                .build();
+    }
+
+
+
     /**
      * Permet de récupérer les informations d'un utilisateur en renseignant son adresse mail
      * @param mail adresse mail de l'utilisateur à récupérer
