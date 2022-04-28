@@ -6,22 +6,6 @@ spring:
   config:
     import: configserver:http://localhost:8888
   cloud:
-    gateway:
-        routes:
-          - id: user-client-id
-            uri: lb://user-client
-            predicates:
-              - Path=/user/**
-            filters:
-              - AuthFilter
-          - id: restaurant-client-id
-            uri: lb://restaurant-client
-            predicates:
-              - Path=/restaurant/**
-          - id: note-client-id
-            uri: lb://note-client
-            predicates:
-                - Path=/note/**
     loadbalancer:
       ribbon:
         enabled: false

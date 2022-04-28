@@ -4,7 +4,8 @@ spring:
   cloud:
     config:
       server:
-        native:
-          search-locations: file:///C:\Users\Thomas\Documents\Cours M1\S2\NTR\How long to eat - git config repo #à modifier selon le pc utilisé
+        git:
+          uri: https://github.com/Wugop/HowLongToEat-TP-Architecture-distribue
+          search-paths: /configRepo
   profiles:
     active: native

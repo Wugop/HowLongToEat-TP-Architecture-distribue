@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/noteRessource")
 public class NoteRessource extends CommonRessource {
 
     @Autowired
@@ -22,25 +22,6 @@ public class NoteRessource extends CommonRessource {
     @Autowired
     private RestTemplate restTemplate;
 
-    /**
-     * Permet la création d'une nouvelle note sur un restaurant
-     *
-     * @param noteModel les informations de la note à enregistrer
-     * @param id        ID de l'utilisateur qui a créé la note
-     * @return ResponseEntity avec un status "Accepted" si la note s'est bien créée
-     */
-    @PostMapping
-    public ResponseEntity<String> addNote(@RequestBody NoteModel noteModel, @RequestHeader(name = "x-auth-user-id") String id) {
-        this.noteRepository.save(NoteModel.builder()
-                .note(noteModel.getNote())
-                .temps(noteModel.getTemps())
-                .idUserN(Integer.parseInt(id))
-                .idRestoN(noteModel.getIdRestoN())
-                .datePassage(noteModel.getDatePassage())
-                .comment(noteModel.getComment())
-                .build());
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Note successfully created");
-    }
 
 
     /**

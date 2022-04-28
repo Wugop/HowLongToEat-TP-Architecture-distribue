@@ -16,12 +16,35 @@ public class SpringCloudConfig {
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/user/api/v1/userRessources/**")
-                        .filters(f -> f.filter(authFilter.apply(new AuthFilter.Config())))
+                        .filters(f -> f.addResponseHeader("Access-Control-Allow-Origin", "*"))
                         .uri("lb://user-client"))
+                .route(r -> r.path("/user/api/v1/userRessourcesRestricted/**")
+                        .filters(f -> {
+                            f.filter(authFilter.apply(new AuthFilter.Config()));
+                            f.addResponseHeader("Access-Control-Allow-Origin", "*");
+                            return f;
+                        })
+                        .uri("lb://user-client"))
+
                 .route(r -> r.path("/user/api/v1/authorization/**")
+                        .filters(f -> f.addResponseHeader("Access-Control-Allow-Origin", "*"))
                         .uri("lb://user-client"))
+
                 .route(r -> r.path("/restaurant/**")
+                        .filters(f -> f.addResponseHeader("Access-Control-Allow-Origin", "*"))
                         .uri("lb://restaurant-client"))
+
+                .route(r -> r.path("/note/api/v1/noteRessources/**")
+                        .filters(f -> f.addResponseHeader("Access-Control-Allow-Origin", "*"))
+                        .uri("lb://note-client"))
+
+                .route(r -> r.path("/note/api/v1/noteRessourcesRestricted/**")
+                        .filters(f -> {
+                            f.filter(authFilter.apply(new AuthFilter.Config()));
+                            f.addResponseHeader("Access-Control-Allow-Origin", "*");
+                            return f;
+                        })
+                        .uri("lb://note-client"))
                 .build();
     }
 }

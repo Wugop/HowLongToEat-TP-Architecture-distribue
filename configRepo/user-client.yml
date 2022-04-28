@@ -1,0 +1,12 @@
+server:
+  port: 4000
+  servlet:
+    context-path: /user
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+app:
+  jwtSecret: MPm2RtLsp2JXY6bVQ7SBTnq47D7rrbKaeYYiyC1PtQsY1FZ1TV4jrKX0nF8O6RR
+  jwtExpirationInMs: 604800000

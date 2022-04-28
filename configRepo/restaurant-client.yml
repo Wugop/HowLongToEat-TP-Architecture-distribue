@@ -1,0 +1,9 @@
+server:
+  port: 6000
+  servlet:
+    context-path: /restaurant
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false

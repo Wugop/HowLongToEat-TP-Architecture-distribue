@@ -9,7 +9,7 @@ const Search = ({setPage}) => {
     const handleSearch = () => {
         axios({
             method: "GET",
-            url: "http://localhost:3001/restos",
+            url: "http://localhost:4555/restaurant/api/v1",
             params: {
                 search: inputSearch
             }

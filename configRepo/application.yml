@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://howlongtoeat.database.windows.net:1433;database=howlongtoeat;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    username: adminHLTE
+    password: adminpasswordHLTE@
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
