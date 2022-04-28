@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Wugop/HowLongToEat-TP-Architecture-distribue
-          search-paths: /configRepo
+          uri: https://github.com/Wugop/HowLongToEat-TP-Architecture-distribue.git
+          search-paths: /config-repo
   profiles:
     active: native
