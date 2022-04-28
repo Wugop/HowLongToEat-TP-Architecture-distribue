@@ -11,6 +11,7 @@ function App() {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
   const [page, setPage] = useState("");
+  const [listeResto, setListeResto] = useState([]);
 
   const accueil = () => {
     setLogger(false);
@@ -37,7 +38,7 @@ function App() {
         <div className="content">
 
           {logger && <Log setLogger={setLogger} setToken={setToken} setUsername={setUsername} />}
-          {!logger && !page && <Search setPage={setPage}/>}
+          {!logger && !page && <Search setPage={setPage} listeResto={listeResto} setListeResto={setListeResto}/>}
           {page && !logger && <Page dataResto={page}/>}
 
         </div>

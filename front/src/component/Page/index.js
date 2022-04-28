@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserContext } from '../../App';
+import Affluence from './Affluence';
 import Note from './Note';
 
 const Page = ({ dataResto }) => {
@@ -20,6 +21,7 @@ const Page = ({ dataResto }) => {
             </div>
             <div className="affluence">
                 <div className="titre">Affluence</div>
+                {<Affluence/>}
             </div>
             <div className="inputHeures">
                 {context.token && <Note/>}

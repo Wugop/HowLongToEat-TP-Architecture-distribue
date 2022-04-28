@@ -2,20 +2,34 @@ import React, { useEffect, useState } from 'react';
 import List from './List';
 import axios from "axios";
 
-const Search = ({setPage}) => {
+const Search = ({ setPage, listeResto, setListeResto }) => {
     const [inputSearch, setInputSearch] = useState("");
-    const [listeResto, setListeResto] = useState([]);
+
+    const [error, setError] = useState(false);
+    const [msg, setMsg] = useState("");
 
     const handleSearch = () => {
         axios({
             method: "GET",
-            url: "http://localhost:4555/restaurant/api/v1",
+            url: "http://localhost:3000/restaurant/api/v1/restaurantRessource",
             params: {
-                search: inputSearch
+                city: inputSearch
             }
         }).then((res) => {
             setListeResto(res.data);
-        }).catch(err => console.log(err));
+            if (res.data.length == 0) {
+                setMsg("Aucun résultat trouvé.");
+                setError(true);
+            } else {
+                setMsg("");
+                setError(false);
+            }
+
+        }).catch(err => {
+            console.log(err);
+            setError(true);
+            setMsg("Une erreur est survenue. Réessayez plus tard.")
+        });
     };
 
     return (
@@ -25,8 +39,21 @@ const Search = ({setPage}) => {
                 <input type="image" id="icon" src='loupe.png' onClick={handleSearch} />
             </div>
             {listeResto.map(r => {
-                    return <List dataResto={r} setPage={setPage}/>
-                })}
+                let waitTime = 0;
+                axios({
+                    method: "GET",
+                    url: "http://localhost:3000/note/api/v1/noteRessource/waitingTime",
+                    params: {
+                        idResto: r.idRestaurant
+                    }
+                }).then((res) => {
+                    console.log(res.data);
+                }).catch(err => {
+                    console.log(err);
+                });
+                return <List dataResto={r} setPage={setPage} />
+            })}
+            {error && <div className="errorMessage">{msg}</div>}
         </div>
     );
 };
