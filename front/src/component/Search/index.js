@@ -39,19 +39,21 @@ const Search = ({ setPage, listeResto, setListeResto }) => {
                 <input type="image" id="icon" src='loupe.png' onClick={handleSearch} />
             </div>
             {listeResto.map(r => {
-                let waitTime = 0;
+                const today = new Date();
+                const now = today.getHours().toString().concat(today.getMinutes());
+                let waitTime = "-";
                 axios({
                     method: "GET",
-                    url: "http://localhost:3000/note/api/v1/noteRessource/waitingTime",
+                    url: "http://localhost:3000/note/api/v1/noteRessources/waitingTime",
                     params: {
-                        idResto: r.idRestaurant
+                        idRestoN: r.idRestaurant
                     }
                 }).then((res) => {
                     console.log(res.data);
                 }).catch(err => {
                     console.log(err);
                 });
-                return <List dataResto={r} setPage={setPage} />
+                return <List dataResto={r} setPage={setPage} waitTime={waitTime}/>
             })}
             {error && <div className="errorMessage">{msg}</div>}
         </div>

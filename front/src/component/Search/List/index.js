@@ -1,6 +1,6 @@
 import React from 'react';
 
-const List = ({dataResto, setPage}) => {
+const List = ({dataResto, setPage, waitTime}) => {
 
     const afficherPage = () => {
         setPage(dataResto);
@@ -15,7 +15,7 @@ const List = ({dataResto, setPage}) => {
             </div>
             <div className="temps">
                 <div className="desc">Temps d'attente :</div>
-                <div className="min">-</div>
+                <div className="min">{waitTime}</div>
             </div>
         </div>
     );

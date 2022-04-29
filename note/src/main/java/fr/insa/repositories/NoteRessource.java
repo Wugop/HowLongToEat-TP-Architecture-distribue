@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@RequestMapping("api/v1/noteRessource")
+@RequestMapping("api/v1/noteRessources")
 public class NoteRessource extends CommonRessource {
 
     @Autowired
@@ -83,7 +83,7 @@ public class NoteRessource extends CommonRessource {
     @GetMapping("/waitingTime")
     public Map<String, Map<Integer, Integer>> getWaitingTimeByResto(@RequestParam(name = "idRestoN") int idResto) throws ExecutionErrorException {
         try {
-            restTemplate.getForObject("http://restaurant-client/restaurant/api/v1?idRestaurant=" + idResto, Object.class);
+            restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class);
             List<NoteModel> listNotes = noteRepository.getNoteModelByIdRestoN(idResto);
             Map<String, Map<Integer, List<NoteModel>>> mapNotesListPerDays = new HashMap<>();
             Map<String, Map<Integer, Integer>> mapWaitingTimePerDays = new HashMap<>();
