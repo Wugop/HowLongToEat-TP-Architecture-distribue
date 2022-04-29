@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/v1/noteRessourceRestricted")
+@RequestMapping("api/v1/noteRessourcesRestricted")
 public class NoteRessourceRestricted {
 
     @Autowired

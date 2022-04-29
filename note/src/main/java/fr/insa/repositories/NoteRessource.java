@@ -33,12 +33,13 @@ public class NoteRessource extends CommonRessource {
     @GetMapping(params = {"idRestoN"})
     public List<NoteModel> getNotebyResto(@RequestParam(name = "idRestoN") int idResto) throws ExecutionErrorException {
         try {
-            restTemplate.getForObject("http://restaurant-client/restaurant/api/v1?idRestaurant=" + idResto, Object.class);
+            if(restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class) == null)
+                throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> list = noteRepository.getNoteModelByIdRestoN(idResto);
             return getNoteModels(list);
         } catch (Exception e) {
             System.err.println("ERR : " + e.getMessage());
-            throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
+            throw new ExecutionErrorException("No instances available for restaurant-client", HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
 
@@ -51,12 +52,13 @@ public class NoteRessource extends CommonRessource {
     @GetMapping(params = {"idUserN"})
     public List<NoteModel> getNotebyUser(@RequestParam(name = "idUserN") int idUser) throws ExecutionErrorException {
         try {
-            restTemplate.getForObject("http://user-client/user/api/v1/userRessources?idUser=" + idUser, Object.class);
+            if(restTemplate.getForObject("http://user-client/user/api/v1/userRessources?idUser=" + idUser, Object.class) == null)
+                throw new ExecutionErrorException("Error getting notes, this user id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> list = noteRepository.getNoteModelByIdUserN(idUser);
             return getNoteModels(list);
         } catch (Exception e) {
             System.err.println("ERR : " + e.getMessage());
-            throw new ExecutionErrorException("Error getting notes, this user id is non-existent.", HttpStatus.BAD_REQUEST);
+            throw new ExecutionErrorException("No instances available for user-client", HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
 
@@ -83,7 +85,8 @@ public class NoteRessource extends CommonRessource {
     @GetMapping("/waitingTime")
     public Map<String, Map<Integer, Integer>> getWaitingTimeByResto(@RequestParam(name = "idRestoN") int idResto) throws ExecutionErrorException {
         try {
-            restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class);
+            if(restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class) == null )
+                    throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> listNotes = noteRepository.getNoteModelByIdRestoN(idResto);
             Map<String, Map<Integer, List<NoteModel>>> mapNotesListPerDays = new HashMap<>();
             Map<String, Map<Integer, Integer>> mapWaitingTimePerDays = new HashMap<>();
@@ -156,9 +159,8 @@ public class NoteRessource extends CommonRessource {
             return mapWaitingTimePerDays;
         } catch (Exception e) {
             System.err.println("ERR : " + e.getMessage());
-            throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
+            throw new ExecutionErrorException("No instance available for restaurant-client", HttpStatus.SERVICE_UNAVAILABLE);
         }
-
     }
 }
 

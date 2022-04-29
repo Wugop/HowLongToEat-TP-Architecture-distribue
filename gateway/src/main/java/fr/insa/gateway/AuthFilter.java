@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,7 +32,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                throw new RuntimeException("Missing auth information");
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Missing auth information");
             }
 
             String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
@@ -39,13 +40,14 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
             String[] parts = authHeader.split(" ");
 
             if (parts.length != 2 || !"Bearer".equals((parts[0]))) {
-                throw new RuntimeException("Incorrect auth Structure");
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect auth Structure");
             }
 
             return webClientBuilder.build()
                     .get()
                     .uri("http://user-client/user/api/v1/authorization/is-authorized?jwt=" + parts[1])
-                    .retrieve().bodyToMono(String.class)
+                    .retrieve()
+                    .bodyToMono(String.class)
                     .filter(token -> !token.equals("-1"))
                     .map(id1 -> {
                         exchange.getRequest()
@@ -53,6 +55,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                                 .header("x-auth-user-id", id1);
                         return exchange;
                     })
+                    .onErrorMap(throwable -> new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable"))
                     .switchIfEmpty(Mono.defer(() -> setErrorResponse(exchange).then(Mono.empty())))
                     .flatMap(chain::filter);
         };
@@ -70,5 +73,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     public static class Config {
 
     }
+
+
 }
 
