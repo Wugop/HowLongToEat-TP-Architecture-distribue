@@ -36,9 +36,11 @@ public class NoteRessource extends CommonRessource {
                 throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> list = noteRepository.getNoteModelByIdRestoN(idResto);
             return getNoteModels(list);
-        } catch (Exception e) {
-            System.err.println("ERR : " + e.getMessage());
-            throw new ExecutionErrorException("No instances available for restaurant-client", HttpStatus.SERVICE_UNAVAILABLE);
+        } catch (RuntimeException e) {
+            if (e.getClass() == IllegalStateException.class)
+                throw new ExecutionErrorException("No instances available for restaurant-client", HttpStatus.SERVICE_UNAVAILABLE);
+            else
+                throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -55,9 +57,11 @@ public class NoteRessource extends CommonRessource {
                 throw new ExecutionErrorException("Error getting notes, this user id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> list = noteRepository.getNoteModelByIdUserN(idUser);
             return getNoteModels(list);
-        } catch (Exception e) {
-            System.err.println("ERR : " + e.getMessage());
-            throw new ExecutionErrorException("No instances available for user-client", HttpStatus.SERVICE_UNAVAILABLE);
+        } catch (RuntimeException e) {
+            if (e.getClass() == IllegalStateException.class)
+                throw new ExecutionErrorException("No instances available for User-client", HttpStatus.SERVICE_UNAVAILABLE);
+            else
+                throw new ExecutionErrorException("Error getting notes, this user id is non-existent.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -164,16 +168,16 @@ public class NoteRessource extends CommonRessource {
     public int getWaitingTimeNowByResto(@RequestParam(name = "idRestoN") int idResto) throws ExecutionErrorException {
         Map<String, Map<Integer, Integer>> mapWaitingTime = getWaitingTimeByResto(idResto);
         Calendar c = Calendar.getInstance();
-        float temp = (float)c.get(Calendar.MINUTE) / 100;
+        float temp = (float) c.get(Calendar.MINUTE) / 100;
         int minute = 0;
-        if(temp >= 0.25 && temp < 0.5)
+        if (temp >= 0.25 && temp < 0.5)
             minute = 25;
-        else if(temp >= 0.5 && temp < 0.75)
+        else if (temp >= 0.5 && temp < 0.75)
             minute = 50;
-        else if(temp >=0.75)
+        else if (temp >= 0.75)
             minute = 75;
         int time = c.get(Calendar.HOUR_OF_DAY) * 100 + minute;
-        return c.get(Calendar.HOUR_OF_DAY) <11 || c.get(Calendar.HOUR_OF_DAY) >14 ? -1 : mapWaitingTime.get(String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))).get(time);
+        return c.get(Calendar.HOUR_OF_DAY) < 11 || c.get(Calendar.HOUR_OF_DAY) > 14 ? -1 : mapWaitingTime.get(String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))).get(time);
     }
 
 

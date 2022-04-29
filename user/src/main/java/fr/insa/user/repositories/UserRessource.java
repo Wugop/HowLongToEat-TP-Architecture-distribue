@@ -30,15 +30,11 @@ public class UserRessource extends CommonRessource{
     }
 
     @GetMapping(params = {"idUser"})
-    public UserModel getUserByMail(@RequestParam(name = "idUser") int id) throws ExecutionErrorException {
+    public UserModel getUserByID(@RequestParam(name = "idUser") int id) throws ExecutionErrorException {
         UserModel userModel = this.userRepository.getUserModelByIdUser(id);
         if(userModel == null)
             throw new ExecutionErrorException("Error getting user, any user with this ID",HttpStatus.BAD_REQUEST);
-        return UserModel.builder()
-                .mail(userModel.getMail())
-                .name(userModel.getName())
-                .firstName(userModel.getFirstName())
-                .build();
+        return userModel;
     }
 
 

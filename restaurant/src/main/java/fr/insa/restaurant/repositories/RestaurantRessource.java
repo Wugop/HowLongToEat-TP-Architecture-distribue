@@ -1,8 +1,10 @@
 package fr.insa.restaurant.repositories;
 
 
+import fr.insa.restaurant.Exceptions.ExecutionErrorException;
 import fr.insa.restaurant.model.RestaurantModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/restaurantRessources")
-public class RestaurantRessource {
+public class RestaurantRessource extends CommonRessource{
 
 
     @Autowired
@@ -32,8 +34,12 @@ public class RestaurantRessource {
      * @return toutes les informations du restaurant s'il existe, sinon NULL
      */
     @GetMapping(params = {"idRestaurant"})
-    public RestaurantModel getRestaurantById(@RequestParam(name = "idRestaurant") int idRestaurant) {
-        return restaurantRepository.getRestaurantModelByIdRestaurant(idRestaurant);
+    public RestaurantModel getRestaurantById(@RequestParam(name = "idRestaurant") int idRestaurant) throws ExecutionErrorException {
+
+        RestaurantModel restaurantModel = this.restaurantRepository.getRestaurantModelByIdRestaurant(idRestaurant);
+        if(restaurantModel == null)
+            throw new ExecutionErrorException("Error getting restaurant, any restaurant with this ID", HttpStatus.BAD_REQUEST);
+        return restaurantModel;
     }
 
     /**

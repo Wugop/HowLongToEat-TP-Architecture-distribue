@@ -46,6 +46,7 @@ public class UserRessourceRestricted extends CommonRessource{
      * @return ResponseEntity avec un status "Accepted" si l'utilisateur a bien été supprimé
      * @throws ExecutionErrorException si l'utilisateur n'a pas été trouvé
      */
+
     @DeleteMapping
     public ResponseEntity<String> deleteUser(@RequestHeader(name = "x-auth-user-id") String id) throws ExecutionErrorException {
         UserModel userModel = this.userRepository.getUserModelByIdUser(Integer.parseInt(id));

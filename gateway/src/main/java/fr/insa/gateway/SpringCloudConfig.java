@@ -27,13 +27,7 @@ public class SpringCloudConfig {
                         .uri("lb://user-client"))
 
                 .route(r -> r.path("/user/api/v1/authorization/**")
-                        .filters(f -> {
-                            f.addResponseHeader("Access-Control-Allow-Origin", "*");
-                            f.addRequestHeader("Access-Control-Allow-Origin", "*");
-                            f.addRequestHeader("Access-Control-Allow-Methods","POST");
-                            f.addResponseHeader("Access-Control-Allow-Methods","POST");
-                            return f;
-                        })
+                        .filters(f -> f.addResponseHeader("Access-Control-Allow-Origin", "*"))
                         .uri("lb://user-client"))
 
                 .route(r -> r.path("/restaurant/**")
