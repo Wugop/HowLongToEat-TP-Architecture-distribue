@@ -23,7 +23,6 @@ public class NoteRessource extends CommonRessource {
     private RestTemplate restTemplate;
 
 
-
     /**
      * Permet de récupérer toutes les notes d'un restaurant en renseignant l'id du restaurant
      *
@@ -33,7 +32,7 @@ public class NoteRessource extends CommonRessource {
     @GetMapping(params = {"idRestoN"})
     public List<NoteModel> getNotebyResto(@RequestParam(name = "idRestoN") int idResto) throws ExecutionErrorException {
         try {
-            if(restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class) == null)
+            if (restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class) == null)
                 throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> list = noteRepository.getNoteModelByIdRestoN(idResto);
             return getNoteModels(list);
@@ -52,7 +51,7 @@ public class NoteRessource extends CommonRessource {
     @GetMapping(params = {"idUserN"})
     public List<NoteModel> getNotebyUser(@RequestParam(name = "idUserN") int idUser) throws ExecutionErrorException {
         try {
-            if(restTemplate.getForObject("http://user-client/user/api/v1/userRessources?idUser=" + idUser, Object.class) == null)
+            if (restTemplate.getForObject("http://user-client/user/api/v1/userRessources?idUser=" + idUser, Object.class) == null)
                 throw new ExecutionErrorException("Error getting notes, this user id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> list = noteRepository.getNoteModelByIdUserN(idUser);
             return getNoteModels(list);
@@ -78,30 +77,28 @@ public class NoteRessource extends CommonRessource {
 
     /**
      * Fonctionnant permettant d'obtenir le temps d'attente moyen par jour pour un restaurant donné par tranche de 15 minutes
+     *
      * @param idResto ID du restaurant à donner le temps d'attente
-     * @return Map<String, Map<Integer, Integer>> avec la première clé qui est le jour de la semaine et la deuxième map, les tranches d'horaires avec les temps d'attentes moyens
+     * @return Map<String, Map < Integer, Integer>> avec la première clé qui est le jour de la semaine et la deuxième map, les tranches d'horaires avec les temps d'attentes moyens
      * @throws ExecutionErrorException Si l'ID du restaurant fourni n'est pas valide
      */
     @GetMapping("/waitingTime")
     public Map<String, Map<Integer, Integer>> getWaitingTimeByResto(@RequestParam(name = "idRestoN") int idResto) throws ExecutionErrorException {
         try {
-            if(restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class) == null )
-                    throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
+            if (restTemplate.getForObject("http://restaurant-client/restaurant/api/v1/restaurantRessources?idRestaurant=" + idResto, Object.class) == null)
+                throw new ExecutionErrorException("Error getting notes, this restaurant id is non-existent.", HttpStatus.BAD_REQUEST);
             List<NoteModel> listNotes = noteRepository.getNoteModelByIdRestoN(idResto);
             Map<String, Map<Integer, List<NoteModel>>> mapNotesListPerDays = new HashMap<>();
             Map<String, Map<Integer, Integer>> mapWaitingTimePerDays = new HashMap<>();
-            String[] days = new DateFormatSymbols().getShortWeekdays();
-            List<String> daysList = new ArrayList<>(Arrays.asList(days));
-            daysList.remove(0);
-            for (String day : daysList) {
-                mapNotesListPerDays.put(day, new HashMap<>());
-                mapWaitingTimePerDays.put(day, new HashMap<>());
-                for (int i = 1100; i < 1500; i += 25)
-                    mapNotesListPerDays.get(day).put(i, new ArrayList<>());
+            for (int i = 0; i < 7; i++) {
+                mapNotesListPerDays.put(String.valueOf(i), new HashMap<>());
+                mapWaitingTimePerDays.put(String.valueOf(i), new HashMap<>());
+                for (int j = 1100; j < 1500; j += 25)
+                    mapNotesListPerDays.get(String.valueOf(i)).put(j, new ArrayList<>());
             }
 
             for (NoteModel note : listNotes) {
-                String key = new SimpleDateFormat("EE").format(note.getDatePassage());
+                String key = String.valueOf(note.getDatePassage().getDay());
                 switch (note.getDatePassage().getHours()) {
                     case 11:
                         if (note.getDatePassage().getMinutes() < 15)
@@ -162,5 +159,23 @@ public class NoteRessource extends CommonRessource {
             throw new ExecutionErrorException("No instance available for restaurant-client", HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
+
+    @GetMapping("waitingTimeNow")
+    public int getWaitingTimeNowByResto(@RequestParam(name = "idRestoN") int idResto) throws ExecutionErrorException {
+        Map<String, Map<Integer, Integer>> mapWaitingTime = getWaitingTimeByResto(idResto);
+        Calendar c = Calendar.getInstance();
+        float temp = (float)c.get(Calendar.MINUTE) / 100;
+        int minute = 0;
+        if(temp >= 0.25 && temp < 0.5)
+            minute = 25;
+        else if(temp >= 0.5 && temp < 0.75)
+            minute = 50;
+        else if(temp >=0.75)
+            minute = 75;
+        int time = c.get(Calendar.HOUR_OF_DAY) * 100 + minute;
+        return c.get(Calendar.HOUR_OF_DAY) <11 || c.get(Calendar.HOUR_OF_DAY) >14 ? -1 : mapWaitingTime.get(String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))).get(time);
+    }
+
+
 }
 
