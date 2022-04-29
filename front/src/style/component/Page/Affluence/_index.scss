@@ -1,4 +1,8 @@
 .histo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     .selectDay {
         background: none;
         border: 1px solid $color-bonus-1;
@@ -12,5 +16,5 @@
 
     option {
         color: black;
-      }
+    }
 }

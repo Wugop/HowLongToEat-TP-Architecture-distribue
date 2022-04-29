@@ -11,20 +11,20 @@ const Log = ({ setToken, setLogger, setUsername }) => {
     const handleLog = (e) => {
         e.preventDefault();
         axios({
-            method: "POST",
-            url: "https://cors.io/?http://localhost:3000/user/api/v1/authorization/login",
-            data: {
-                email: "AntonGoulet@armyspy.com",
-                password: "mdp1"
-            },
-            withCredentials: true
+            method: "GET",
+            url: "http://localhost:3001/login",
+            params:{
+                username: username,
+                password: password
+            }
         }).then((res) => {
             console.log(res.data);
+            setToken(res.data);
             setLogger(false);
         }).catch(err => {
             console.log(err);
             setError(true);
-        })
+        });
     }
 
     return (

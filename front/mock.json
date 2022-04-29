@@ -143,6 +143,31 @@
       "enabled": true,
       "randomResponse": false,
       "sequentialResponse": false
+    },
+    {
+      "uuid": "35e65dbe-44dd-4c48-8433-85f29b999005",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "addNote",
+      "responses": [
+        {
+          "uuid": "6a35ed61-fe5c-4723-be5b-e13b35e751dd",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
     }
   ],
   "proxyMode": false,

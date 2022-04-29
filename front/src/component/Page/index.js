@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { UserContext } from '../../App';
 import Affluence from './Affluence';
 import Note from './Note';
+import axios from "axios";
 
 const Page = ({ dataResto }) => {
     const context = React.useContext(UserContext);
+    const [dataWaitTime, setDataWaitTime] = useState(null);
+    const [error, setError] = useState(false);
+    const [posted, setPosted] = useState("");
+
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: "http://localhost:3000/note/api/v1/noteRessources/waitingTime",
+            params: {
+                idRestoN: dataResto.idRestaurant
+            }
+        }).then((res) => {
+            setDataWaitTime(res.data);
+        }).catch(err => {
+            console.log(err);
+            setError(true);
+        });
+    }, []);
 
     return (
         <div className='page'>
@@ -21,11 +40,13 @@ const Page = ({ dataResto }) => {
             </div>
             <div className="affluence">
                 <div className="titre">Affluence</div>
-                {<Affluence/>}
+                {error && <div className='errorAffluence'>Une erreur est survenue, réessayez plus tard.</div>}
+                {!error && <Affluence dataWaitTime={dataWaitTime}/>}
             </div>
             <div className="inputHeures">
-                {context.token && <Note/>}
+                {context.token && !posted && <Note setPosted={setPosted} setError={setError}/>}
                 {!context.token && <div className="connect">Connectez-vous pour partager votre expérience dans ce restaurant.</div>}
+                {posted && <div className='connect'>{posted}</div>}
             </div>
         </div>
 

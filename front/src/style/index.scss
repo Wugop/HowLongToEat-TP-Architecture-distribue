@@ -6,7 +6,7 @@
 @import './component/Page/Note/index';
 @import './component/Page/Affluence/index';
 
-#root{
+#root {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,7 +16,7 @@
     background-color: #DBDBDB;
 }
 
-.app{
+.app {
     width: 100%;
     height: 100%;
     max-width: 600px;
@@ -27,29 +27,37 @@
     box-shadow: 12px 16px 16px rgba(30, 30, 38, 0.2);
     background-color: $main-color;
 
-    .window-options{
-        position:absolute;
+    .window-options {
+        position: absolute;
         top: 10px;
         left: 10px;
     }
 }
 
-.title{
+.title {
     display: flex;
     justify-content: space-between;
     font-size: 300%;
     background-color: $second-color;
     padding: 5%;
-    
-    .title-first{
+
+    .title-first {
         display: flex;
         color: white;
+
+        &:hover {
+            background: $main-gradient;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     }
-    .title-second{
+
+    .title-second {
         background: $main-gradient;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+
     input {
         height: 2rem;
         box-sizing: border-box;
@@ -57,18 +65,18 @@
         border-radius: 4px;
         margin-top: auto;
         margin-bottom: auto;
-    
-        &:focus{
-          outline: none;
+
+        &:focus {
+            outline: none;
         }
     }
 
-    .disconnectButton{
+    .disconnectButton {
         display: flex;
         font-size: 0.875rem;
         color: white;
 
-        .username{
+        .username {
             margin: auto;
         }
 
@@ -80,9 +88,9 @@
             margin-left: 3%;
             margin-top: auto;
             margin-bottom: auto;
-        
-            &:focus{
-              outline: none;
+
+            &:focus {
+                outline: none;
             }
         }
     }
@@ -93,14 +101,14 @@
         background: $main-gradient;
         transition: .1s ease-in;
         cursor: pointer;
-    
+
         &:hover {
-          background: $main-gradient-hover;
+            background: $main-gradient-hover;
         }
-      }
+    }
 }
 
-.content{
+.content {
     width: 100%;
     height: 100%;
     max-height: 600px;

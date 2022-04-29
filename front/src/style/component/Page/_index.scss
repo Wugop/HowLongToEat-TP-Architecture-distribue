@@ -2,6 +2,7 @@
     width: 100%;
     max-height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 
     .infosDetails {
         display: flex;
@@ -36,7 +37,7 @@
         color: white;
         background-color: $second-color;
         border-radius: 16px;
-        height: 200px;
+        height: 290px;
         margin: 3%;
         width: 88%;
         padding: 3%;
@@ -46,6 +47,11 @@
             color: $color-bonus-1;
             margin-bottom: 2%;
         }
+    }
+
+    .errorAffluence{
+        text-align: center;
+        margin-top: 25%;
     }
 
     .inputHeures{
