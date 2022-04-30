@@ -27,7 +27,7 @@ function App() {
           {
             token &&
             <div className="disconnectButton">
-              <div className="username">{username}</div>
+              <div className="username"></div>
               <input type="button" onClick={() => {
                 setToken("");
                 setUsername("");

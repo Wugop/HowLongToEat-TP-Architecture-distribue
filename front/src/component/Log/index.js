@@ -4,17 +4,19 @@ import { UserContext } from '../../App';
 
 const Log = ({ setToken, setLogger, setUsername }) => {
     const username = React.useContext(UserContext);
+    const [username2, setUsername2] = useState("");
     const [password, setPassword] = useState("");
 
     const [error, setError] = useState(false);
 
     const handleLog = (e) => {
         e.preventDefault();
+        setUsername(username2);
         axios({
-            method: "GET",
-            url: "http://localhost:3001/login",
-            params:{
-                username: username,
+            method: "POST",
+            url: "http://localhost:3000/user/api/v1/authorization/login",
+            data:{
+                email: username2,
                 password: password
             }
         }).then((res) => {
@@ -31,7 +33,7 @@ const Log = ({ setToken, setLogger, setUsername }) => {
         <div>
             <div className="titleLog1">Se connecter</div>
             <form action="" onSubmit={handleLog} className="login-form-container">
-                <input type="text" onChange={(e) => setUsername(e.target.value)} placeholder='Adresse mail' id="username" />
+                <input type="text" onChange={(e) => setUsername2(e.target.value)} placeholder='Adresse mail' id="username" />
                 <input type="text" onChange={(e) => setPassword(e.target.value)} placeholder='Mot de passe' id="username" />
                 <input type="submit" value="Se connecter" id="join" />
                 {error && <div className='errorText'>Nom d'utilisateur ou mot de passe incorrect</div>}
