@@ -177,10 +177,7 @@ public class NoteRessource extends CommonRessource {
         else if (temp >= 0.75)
             minute = 75;
         int time = c.get(Calendar.HOUR_OF_DAY) * 100 + minute;
-        System.out.println(time);
-        System.out.println(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
-        System.out.println(mapWaitingTime.get(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
-        return c.get(Calendar.HOUR_OF_DAY) < 11 || c.get(Calendar.HOUR_OF_DAY) > 14 ? -1 : mapWaitingTime.get((Calendar.getInstance().get((Calendar.DAY_OF_WEEK)-1))).get(time);
+        return c.get(Calendar.HOUR_OF_DAY) < 11 || c.get(Calendar.HOUR_OF_DAY) > 14 ? -1 : mapWaitingTime.get(String.valueOf(c.get(Calendar.DAY_OF_WEEK) - 1)).get(time);
     }
 
 
