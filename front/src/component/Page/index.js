@@ -44,7 +44,7 @@ const Page = ({ dataResto }) => {
                 {!error && <Affluence dataWaitTime={dataWaitTime}/>}
             </div>
             <div className="inputHeures">
-                {context.token && !posted && <Note setPosted={setPosted} setError={setError}/>}
+                {context.token && !posted && <Note setPosted={setPosted} setError={setError} dataResto={dataResto}/>}
                 {!context.token && <div className="connect">Connectez-vous pour partager votre expérience dans ce restaurant.</div>}
                 {posted && <div className='connect'>{posted}</div>}
             </div>
