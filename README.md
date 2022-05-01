@@ -4,6 +4,9 @@
 How Long To Eat est un projet étudiant réalisé pour notre cours d'architecture distribuée.
 L'objectif étant de travailler sur une application SpringBoot avec plusieurs micro-services.
 
+HLTE est un site internet Tripadvisor Like. La principale différence est que notre site se base plus sur le temps d'attente avant de pouvoir être servi. Tous les utilisateurs (enregistrés comme visiteurs) peuvent consulter les notes d'un restaurant et voir le temps d'attente moyen pour chaque jour aux différents horraires d'ouverture du restaurant. Seuls les utilisateurs enregistrés peuvent laisser une note sur un restaurant avec leur temps avant d'être servie.
+
+
 ## Micro-services
 Notre application comporte 6 micro-services : 
   - ServiceRegistry
@@ -32,3 +35,9 @@ Pour lancer l'application front, voici la ligne de commande à lancer dans le do
 Si React n'est pas installé de base, lancé d'abord cette ligne 
 
 <pre> npm i react </pre>
+
+## Diaporama 
+
+Voici le lien du diaporama utilisé lors de la présentation : 
+
+https://docs.google.com/presentation/d/1jj8r73XwEuO7kOIZH9svB-kzdd9qa89yw5dFoRW8HSw/edit?usp=sharing
